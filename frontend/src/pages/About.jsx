@@ -21,15 +21,19 @@ const About = () => {
                         {/* REPLACE WITH YOUR ACTUAL NAMES */}
                         <li className="flex items-center gap-3">
                             <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">1</span>
-                            <span className="font-medium text-slate-700">Tadaishe Chibondo (Lead Developer)</span>
+                            <span className="font-medium text-slate-700">Tadaishe Chibondo (Software Engineer)</span>
                         </li>
                         <li className="flex items-center gap-3">
                             <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">2</span>
-                            <span className="font-medium text-slate-700">Member Name 2</span>
+                            <span className="font-medium text-slate-700">Dennis Mademutsa (Project Manager)</span>
                         </li>
                          <li className="flex items-center gap-3">
                             <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">3</span>
-                            <span className="font-medium text-slate-700">Member Name 3</span>
+                            <span className="font-medium text-slate-700">Natasha Zireva (UX/UI Designer)</span>
+                        </li>
+                        <li className="flex items-center gap-3">
+                            <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">4</span>
+                            <span className="font-medium text-slate-700">Patrice Kasere (Documentation)</span>
                         </li>
                     </ul>
                 </div>

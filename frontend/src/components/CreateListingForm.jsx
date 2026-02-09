@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createListing } from '../services/api';
-import { Upload, X } from 'lucide-react';
+import { Upload, X, Loader2 } from 'lucide-react';
 
 const CreateListingForm = ({ onClose, onListingCreated }) => {
     const [formData, setFormData] = useState({
@@ -11,6 +11,7 @@ const CreateListingForm = ({ onClose, onListingCreated }) => {
         image: null
     });
     const [loading, setLoading] = useState(false);
+    const [preview, setPreview] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -18,23 +19,25 @@ const CreateListingForm = ({ onClose, onListingCreated }) => {
     };
 
     const handleImageChange = (e) => {
-        setFormData(prev => ({ ...prev, image: e.target.files[0] }));
+        const file = e.target.files[0];
+        if (file) {
+            setFormData(prev => ({ ...prev, image: file }));
+            setPreview(URL.createObjectURL(file));
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
-        // We need FormData to send files to Django
         const data = new FormData();
         data.append('crop_name', formData.crop_name);
         data.append('quantity_kg', formData.quantity_kg);
         data.append('price_per_kg', formData.price_per_kg);
         data.append('harvest_date', formData.harvest_date);
         
-        // Hardcoding a farmer ID for the prototype since we haven't built Login yet
-        // Make sure you have a UserProfile with ID 1 in your database!
-        data.append('farmer', 1); 
+        // IMPORTANT FIX: We do NOT append 'farmer' here anymore.
+        // The backend will automatically attach your User Profile based on your Token.
 
         if (formData.image) {
             data.append('image', formData.image);
@@ -43,62 +46,102 @@ const CreateListingForm = ({ onClose, onListingCreated }) => {
         try {
             await createListing(data);
             onListingCreated(); // Refresh the list
-            onClose(); // Close the form
+            onClose(); // Close the modal
         } catch (error) {
-            alert('Error creating listing. Did you create a UserProfile in Django Admin first?');
+            console.error("Submission failed:", error);
+            if (error.response && error.response.status === 401) {
+                alert("Your session has expired. Please login again.");
+                window.location.href = '/login';
+            } else {
+                alert("Error creating listing. Make sure you are logged in as a Farmer.");
+            }
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-xl p-6 w-full max-w-md relative">
-                <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
-                    <X />
-                </button>
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in duration-200">
+                <div className="flex justify-between items-center p-4 border-b border-slate-100">
+                    <h2 className="text-xl font-bold text-slate-800">Post New Harvest</h2>
+                    <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition-colors">
+                        <X size={20} />
+                    </button>
+                </div>
                 
-                <h2 className="text-2xl font-bold mb-4">Post New Harvest</h2>
-                
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="p-6 space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Crop Name</label>
-                        <input name="crop_name" type="text" placeholder="e.g. Red Onions" required
-                            className="w-full p-2 border rounded-md" onChange={handleChange} />
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Crop Name</label>
+                        <input 
+                            name="crop_name" 
+                            type="text" 
+                            placeholder="e.g. Red Onions" 
+                            required
+                            className="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none transition-all" 
+                            onChange={handleChange} 
+                        />
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">Quantity (kg)</label>
-                            <input name="quantity_kg" type="number" placeholder="500" required
-                                className="w-full p-2 border rounded-md" onChange={handleChange} />
+                            <label className="block text-sm font-bold text-slate-700 mb-1">Quantity (kg)</label>
+                            <input 
+                                name="quantity_kg" 
+                                type="number" 
+                                placeholder="500" 
+                                required
+                                className="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none transition-all" 
+                                onChange={handleChange} 
+                            />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">Price ($/kg)</label>
-                            <input name="price_per_kg" type="number" step="0.01" placeholder="1.20" required
-                                className="w-full p-2 border rounded-md" onChange={handleChange} />
+                            <label className="block text-sm font-bold text-slate-700 mb-1">Price ($/kg)</label>
+                            <input 
+                                name="price_per_kg" 
+                                type="number" 
+                                step="0.01" 
+                                placeholder="1.20" 
+                                required
+                                className="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none transition-all" 
+                                onChange={handleChange} 
+                            />
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Harvest Date</label>
-                        <input name="harvest_date" type="date" required
-                            className="w-full p-2 border rounded-md" onChange={handleChange} />
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Harvest Date</label>
+                        <input 
+                            name="harvest_date" 
+                            type="date" 
+                            required
+                            className="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none transition-all" 
+                            onChange={handleChange} 
+                        />
                     </div>
 
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:bg-gray-50">
+                    <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center cursor-pointer hover:bg-slate-50 hover:border-emerald-400 transition-all group">
                         <input type="file" id="image-upload" className="hidden" accept="image/*" onChange={handleImageChange} />
                         <label htmlFor="image-upload" className="cursor-pointer flex flex-col items-center">
-                            <Upload className="text-gray-400 mb-2" />
-                            <span className="text-sm text-gray-500">
-                                {formData.image ? formData.image.name : "Click to upload crop photo"}
+                            {preview ? (
+                                <img src={preview} alt="Preview" className="h-32 object-contain rounded mb-2" />
+                            ) : (
+                                <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mb-2 group-hover:bg-emerald-100 transition-colors">
+                                    <Upload className="text-slate-400 group-hover:text-emerald-600" size={24} />
+                                </div>
+                            )}
+                            <span className="text-sm font-medium text-slate-600 group-hover:text-emerald-600">
+                                {formData.image ? "Change Photo" : "Click to upload photo"}
                             </span>
                         </label>
                     </div>
 
-                    <button type="submit" disabled={loading}
-                        className="w-full bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 disabled:bg-gray-400">
-                        {loading ? 'Posting...' : 'Post Listing'}
+                    <button 
+                        type="submit" 
+                        disabled={loading}
+                        className="w-full bg-emerald-600 text-white py-3 rounded-xl font-bold hover:bg-emerald-700 disabled:bg-slate-400 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all mt-2"
+                    >
+                        {loading ? <><Loader2 className="animate-spin" /> Posting...</> : 'Post Listing'}
                     </button>
                 </form>
             </div>
