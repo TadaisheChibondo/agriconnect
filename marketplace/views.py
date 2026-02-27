@@ -1,3 +1,4 @@
+from rest_framework.permissions import IsAuthenticated
 import random
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action, api_view, permission_classes
@@ -47,6 +48,16 @@ def register_user(request):
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
+
+    # NEW: Returns the profile of the currently logged-in user
+    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    def me(self, request):
+        try:
+            profile = self.queryset.get(user=request.user)
+            serializer = self.get_serializer(profile)
+            return Response(serializer.data)
+        except UserProfile.DoesNotExist:
+            return Response({"error": "Profile not found"}, status=404)
 
 class ListingViewSet(viewsets.ModelViewSet):
     queryset = Listing.objects.all()

@@ -41,6 +41,19 @@ export const logoutUser = () => {
   localStorage.removeItem("token");
 };
 
+export const getUserProfile = async () => {
+  try {
+    const response = await axios.get(
+      `${API_URL}profiles/me/`,
+      getAuthHeaders(),
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    throw error;
+  }
+};
+
 // --- LISTINGS (Farmers) ---
 
 export const getListings = async () => {
