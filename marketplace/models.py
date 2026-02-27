@@ -13,6 +13,9 @@ class UserProfile(models.Model):
     phone = models.CharField(max_length=15)
     location = models.CharField(max_length=255) # E.g., "Bulawayo, Zimbabwe"
     
+    # NEW: Captures Farmer's crops/livestock OR Startup's target materials
+    specialty = models.CharField(max_length=255, blank=True, null=True) 
+    
     # Specific to Startups
     company_name = models.CharField(max_length=100, blank=True, null=True)
     processing_capacity = models.CharField(max_length=100, blank=True, null=True) # e.g. "5 tons/week"

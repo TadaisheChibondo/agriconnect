@@ -1,7 +1,6 @@
 import axios from "axios";
 
 // Switch automatically between Localhost and Vercel/Render
-// Switch automatically between Localhost and Vercel/Render
 const API_URL =
   import.meta.env.VITE_API_URL ||
   "https://yield-trade-backend-1dh8.onrender.com/api/";
@@ -125,5 +124,22 @@ export const getStartupMatches = async (requirementId) => {
   } catch (error) {
     console.error("Error finding startup matches:", error);
     return [];
+  }
+};
+
+// --- AI PREDICTION ENGINE ---
+
+export const predictYield = async (predictionData) => {
+  try {
+    // This endpoint is public (AllowAny), so we don't strictly need auth headers,
+    // but it's fine to pass data normally.
+    const response = await axios.post(
+      `${API_URL}predict-yield/`,
+      predictionData,
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error predicting yield:", error);
+    throw error;
   }
 };
