@@ -134,6 +134,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # 5. CORS (Allow Vercel)
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://yieldtrade.vercel.app/",
     # We will add your Vercel URL here later, e.g.:
     # "https://agriconnect-frontend.vercel.app", 
 ]
