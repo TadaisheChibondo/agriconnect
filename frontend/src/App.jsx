@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import About from "./pages/About";
 import Profile from "./pages/Profile";
 import Landing from "./pages/Landing"; // <--- IMPORT THE NEW PAGE
+import { Toaster } from "react-hot-toast";
 
 function Layout({ children }) {
   const [viewMode, setViewMode] = React.useState("farmer");
