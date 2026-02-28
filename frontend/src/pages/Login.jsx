@@ -1,22 +1,28 @@
 import React, { useState } from "react";
 import { loginUser } from "../services/api";
 import { useNavigate, Link } from "react-router-dom";
-import { Sprout } from "lucide-react";
-import toast from "react-hot-toast"; // Assuming you installed this earlier!
+import { Sprout, Eye, EyeOff, Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Start the loading spinner
+
     try {
       await loginUser(username, password);
       toast.success("Welcome back!");
       navigate("/dashboard");
     } catch (err) {
       toast.error("Invalid credentials. Please try again.");
+    } finally {
+      setIsLoading(false); // Stop the spinner whether it succeeded or failed
     }
   };
 
@@ -45,22 +51,43 @@ const Login = () => {
               required
             />
           </div>
+
           <div>
             <label className="block text-sm font-bold text-stone-600 mb-1">
               Password
             </label>
-            <input
-              type="password"
-              className="w-full p-3 bg-stone-50 border border-stone-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="w-full p-3 bg-stone-50 border border-stone-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all pr-10"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 transition-colors"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </div>
-          <button className="w-full bg-green-950 text-white py-3.5 rounded-lg font-bold hover:bg-emerald-600 transition-colors shadow-md mt-2">
-            Sign In
+
+          <button
+            disabled={isLoading}
+            className="w-full bg-green-950 text-white py-3.5 rounded-lg font-bold hover:bg-emerald-600 transition-colors shadow-md mt-2 flex items-center justify-center gap-2 disabled:bg-stone-400 disabled:cursor-not-allowed"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 size={20} className="animate-spin" /> Signing In...
+              </>
+            ) : (
+              "Sign In"
+            )}
           </button>
         </form>
+
         <p className="mt-8 text-center text-sm text-stone-500 font-medium">
           Don't have an account?{" "}
           <Link
