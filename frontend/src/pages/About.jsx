@@ -1,45 +1,104 @@
-import React from 'react';
-import { Users } from 'lucide-react';
+import React from "react";
+import { Users } from "lucide-react";
 
 const About = () => {
-    return (
-        <div className="min-h-screen bg-slate-50 p-8 flex items-center justify-center">
-            <div className="max-w-2xl w-full bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div className="bg-slate-900 text-white p-8 text-center">
-                    <Users size={48} className="mx-auto mb-4 text-emerald-400"/>
-                    <h1 className="text-3xl font-bold">About Us</h1>
-                    <p className="text-slate-400">The team behind AgriConnect</p>
-                </div>
-                <div className="p-8">
-                    <p className="text-slate-600 mb-6 text-center">
-                        This project was built for our University Module on AI in Business. 
-                        Our goal is to solve the supply chain disconnect in Zimbabwe's agricultural sector.
-                    </p>
-                    
-                    <h3 className="font-bold text-lg mb-4 text-slate-800 border-b pb-2">Group Members</h3>
-                    <ul className="space-y-3">
-                        {/* REPLACE WITH YOUR ACTUAL NAMES */}
-                        <li className="flex items-center gap-3">
-                            <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">1</span>
-                            <span className="font-medium text-slate-700">Tadaishe Chibondo (Software Engineer)</span>
-                        </li>
-                        <li className="flex items-center gap-3">
-                            <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">2</span>
-                            <span className="font-medium text-slate-700">Dennis Mademutsa (Project Manager)</span>
-                        </li>
-                         <li className="flex items-center gap-3">
-                            <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">3</span>
-                            <span className="font-medium text-slate-700">Natasha Zireva (UX/UI Designer)</span>
-                        </li>
-                        <li className="flex items-center gap-3">
-                            <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">4</span>
-                            <span className="font-medium text-slate-700">Patrice Kasere (Documentation)</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+  return (
+    <div className="min-h-screen bg-slate-50 p-8 flex items-center justify-center">
+      <div className="max-w-2xl w-full bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="bg-slate-900 text-white p-8 text-center">
+          <Users size={48} className="mx-auto mb-4 text-emerald-400" />
+          <h1 className="text-3xl font-bold">About Us</h1>
+          <p className="text-slate-400">The team behind AgriConnect</p>
         </div>
-    );
+        <div className="p-8">
+          <p className="text-slate-600 mb-6 text-center">
+            This project was built for our University Module on AI in Business.
+            Our goal is to solve the supply chain disconnect in Zimbabwe's
+            agricultural sector.
+          </p>
+
+          <h3 className="font-bold text-lg mb-4 text-slate-800 border-b pb-2">
+            Group Members
+          </h3>
+          <ul className="space-y-3">
+            {/* REPLACE WITH YOUR ACTUAL NAMES */}
+            <li className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                1
+              </span>
+              <span className="font-medium text-slate-700">
+                Tadaishe Chibondo (Programmer 1)
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                2
+              </span>
+              <span className="font-medium text-slate-700">
+                Dennis Mademutsa (Project Manager)
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                3
+              </span>
+              <span className="font-medium text-slate-700">
+                Natasha Zireva (Security Officer)
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                4
+              </span>
+              <span className="font-medium text-slate-700">
+                Leodeser(Database Administrator)
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                5
+              </span>
+              <span className="font-medium text-slate-700">
+                Tatenda Zimuto (Network Administrator)
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                6
+              </span>
+              <span className="font-medium text-slate-700">
+                Novuyo Ndlovu (AI/ML Engineer)
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                7
+              </span>
+              <span className="font-medium text-slate-700">
+                Patrice Kasere (Software Engineer)
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                8
+              </span>
+              <span className="font-medium text-slate-700">
+                Triciah Mapurisa(Software Engineer)
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                9
+              </span>
+              <span className="font-medium text-slate-700">
+                Thamsanqa Dzimati(Test Programmer)
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default About;
