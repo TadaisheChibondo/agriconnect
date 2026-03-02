@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { getListings, getMatches } from "../services/api";
 import CreateListingForm from "../components/CreateListingForm";
 import ContactModal from "../components/ContactModal";
-import WeatherWidget from "./WeatherWidget";
 import {
   Sprout,
   DollarSign,
