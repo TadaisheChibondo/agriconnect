@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Sprout,
-  Factory,
   Bell,
   LogOut,
   Info,
@@ -12,12 +11,11 @@ import {
   User,
 } from "lucide-react";
 
-const Navbar = ({ viewMode, setViewMode }) => {
+const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const isLoggedIn = !!localStorage.getItem("token");
-  const isDashboard = location.pathname === "/dashboard";
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -25,60 +23,26 @@ const Navbar = ({ viewMode, setViewMode }) => {
   };
 
   return (
-    <nav className="bg-white border-b border-stone-200 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
+    <nav className="bg-white border-b border-stone-200 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm font-sans">
       {/* 1. Logo Section */}
       <Link
         to={isLoggedIn ? "/dashboard" : "/"}
         className="flex items-center gap-3 group mr-4"
       >
-        <div
-          className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-            viewMode === "farmer"
-              ? "bg-emerald-100 text-emerald-600"
-              : "bg-amber-100 text-amber-600" // Changed from blue to amber
-          }`}
-        >
-          {viewMode === "farmer" ? <Sprout size={24} /> : <Factory size={24} />}
+        <div className="w-10 h-10 rounded-xl flex items-center justify-center transition-colors bg-emerald-100 text-emerald-600">
+          <Sprout size={24} />
         </div>
         <div>
           <h1 className="text-xl font-bold tracking-tight text-stone-900 leading-none group-hover:text-emerald-700 transition-colors">
             Yield-Trade
           </h1>
           <p className="text-xs text-stone-500 font-medium">
-            {viewMode === "farmer"
-              ? "Farmer Marketplace"
-              : "Startup Procurement"}
+            Agricultural Marketplace
           </p>
         </div>
       </Link>
 
-      {/* 2. Center Toggle (Only visible on Dashboard) */}
-      {isDashboard && (
-        <div className="hidden lg:flex bg-stone-100 p-1 rounded-lg items-center gap-1 absolute left-1/2 -translate-x-1/2">
-          <button
-            onClick={() => setViewMode("farmer")}
-            className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all duration-200 ${
-              viewMode === "farmer"
-                ? "bg-white shadow text-emerald-700"
-                : "text-stone-500 hover:text-stone-800"
-            }`}
-          >
-            Farmer View
-          </button>
-          <button
-            onClick={() => setViewMode("startup")}
-            className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all duration-200 ${
-              viewMode === "startup"
-                ? "bg-white shadow text-amber-700" // Changed from blue to amber
-                : "text-stone-500 hover:text-stone-800"
-            }`}
-          >
-            Startup View
-          </button>
-        </div>
-      )}
-
-      {/* 3. Right Actions & Links */}
+      {/* 2. Right Actions & Links */}
       <div className="flex items-center gap-4 md:gap-6">
         {/* Main Navigation Links */}
         <div className="hidden md:flex items-center gap-4 mr-2">
@@ -143,7 +107,6 @@ const Navbar = ({ viewMode, setViewMode }) => {
             </Link>
             <Link
               to="/register"
-              // Changed to deep green-950 to match the new landing page
               className="bg-green-950 text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-emerald-600 transition-all active:scale-95 shadow-lg shadow-green-900/20 flex items-center gap-2"
             >
               Get Started <UserPlus size={16} />
