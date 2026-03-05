@@ -3,6 +3,8 @@ from rest_framework.routers import DefaultRouter
 # Added predict_yield to the import list below
 from .views import UserProfileViewSet, ListingViewSet, RequirementViewSet, register_user, predict_yield 
 from rest_framework.authtoken.views import obtain_auth_token 
+from django.conf import settings # <--- NEW
+from django.conf.urls.static import static # <--- NEW
 
 router = DefaultRouter()
 router.register(r'profiles', UserProfileViewSet)
@@ -15,3 +17,4 @@ urlpatterns = [
     path('register/', register_user), 
     path('predict-yield/', predict_yield), # <--- Added the new AI endpoint here
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
