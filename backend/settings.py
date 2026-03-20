@@ -153,3 +153,15 @@ REST_FRAMEWORK = {
 # Tells Django REST Framework to accept Tokens for authentication
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# --- MODERN SETTINGS (For Django 5+) ---
+STORAGES = {
+    "default": {
+        # Point to the custom adapter we just built!
+        "BACKEND": "market.storage.ImageKitStorage",
+    },
+    "staticfiles": {
+        # Keep the safe mode for static files
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
