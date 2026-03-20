@@ -158,7 +158,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STORAGES = {
     "default": {
         # Point to the custom adapter we just built!
-        "BACKEND": "market.storage.ImageKitStorage",
+        "BACKEND": "marketplace.storage.ImageKitStorage",
     },
     "staticfiles": {
         # Keep the safe mode for static files
