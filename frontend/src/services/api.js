@@ -1,9 +1,13 @@
 import axios from "axios";
 
 // Switch automatically between Localhost and Vercel/Render
-const API_URL =
-  import.meta.env.VITE_API_URL ||
-  "https://yield-trade-backend-1dh8.onrender.com/api/";
+const BASE_URL =
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1"
+    ? "http://127.0.0.1:8000"
+    : "https://yield-trade-backend-1dh8.onrender.com";
+
+const API_URL = `${BASE_URL}/api/`;
 
 // Helper to get the token from storage
 const getAuthHeaders = () => {
@@ -69,11 +73,9 @@ export const getListings = async () => {
 export const createListing = async (listingData) => {
   try {
     const config = getAuthHeaders();
-    // Add multipart/form-data for image uploads
-    config.headers = {
-      ...config.headers,
-      "Content-Type": "multipart/form-data",
-    };
+
+    // Axios automatically handles the multipart/form-data content type
+    // and the required boundary string when you pass it a FormData object!
 
     const response = await axios.post(
       `${API_URL}listings/`,

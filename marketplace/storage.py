@@ -6,9 +6,7 @@ class ImageKitStorage(Storage):
     def __init__(self):
         # Initialize ImageKit with keys from Render's environment
         self.imagekit = ImageKit(
-            public_key=os.environ.get('IMAGEKIT_PUBLIC_KEY', ''),
-            private_key=os.environ.get('IMAGEKIT_PRIVATE_KEY', ''),
-            url_endpoint=os.environ.get('IMAGEKIT_URL_ENDPOINT', '')
+            private_key=os.environ.get('IMAGEKIT_PRIVATE_KEY', '')
         )
 
     def _save(self, name, content):

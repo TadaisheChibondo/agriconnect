@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getListings, getMatches } from "../services/api";
 import CreateListingForm from "../components/CreateListingForm";
 import ContactModal from "../components/ContactModal";
+import WeatherWidget from "../components/WeatherWidget";
 import {
   Sprout,
   DollarSign,
@@ -11,6 +12,7 @@ import {
   AlertCircle,
   Plus,
   Search,
+  Loader2, // <--- NEW IMPORT
 } from "lucide-react";
 
 const FarmerDashboard = () => {
@@ -199,11 +201,12 @@ const FarmerDashboard = () => {
                   </div>
                 ) : (
                   <div className="text-center py-8 text-stone-400 flex flex-col items-center">
-                    <AlertCircle
+                    {/* NEW ANIMATED LOADER */}
+                    <Loader2
                       size={32}
-                      className="mb-2 opacity-30 text-emerald-500"
+                      className="mb-3 text-emerald-500 animate-spin opacity-60"
                     />
-                    <p className="text-sm font-medium">
+                    <p className="text-sm font-medium animate-pulse">
                       AI is scanning for industrial buyers...
                     </p>
                   </div>

@@ -9,6 +9,7 @@ import {
   Home,
   LayoutDashboard,
   User,
+  Search, // <--- NEW ICON IMPORT
 } from "lucide-react";
 
 const Navbar = () => {
@@ -54,12 +55,22 @@ const Navbar = () => {
           </Link>
 
           {isLoggedIn && (
-            <Link
-              to="/dashboard"
-              className="text-sm font-medium text-stone-500 hover:text-emerald-600 flex items-center gap-1 transition-colors"
-            >
-              <LayoutDashboard size={16} /> Dashboard
-            </Link>
+            <>
+              <Link
+                to="/dashboard"
+                className="text-sm font-medium text-stone-500 hover:text-emerald-600 flex items-center gap-1 transition-colors"
+              >
+                <LayoutDashboard size={16} /> Dashboard
+              </Link>
+
+              {/* NEW BROWSE LINK */}
+              <Link
+                to="/marketplace"
+                className="text-sm font-medium text-stone-500 hover:text-emerald-600 flex items-center gap-1 transition-colors"
+              >
+                <Search size={16} /> Browse
+              </Link>
+            </>
           )}
 
           <Link
