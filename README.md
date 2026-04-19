@@ -1,7 +1,10 @@
 Yield-Trade 🌾
+
 Bridging the gap between small-scale farmers and industrial buyers through AI-driven matching.AgriConnect is a dual-sided marketplace designed to solve supply chain inefficiencies in the agricultural sector. It connects farmers directly with startups and industrial processors, using an intelligent matching algorithm to recommend partnerships based on crop type, volume, price, and location.
+
 🚀 Key Features👨‍🌾 For Farmers (Supply Side)Harvest Management: Post listings for crops with photos, quantities, and pricing.AI Buyer Matching: Instantly find industrial buyers looking for your specific produce.Direct Connection: Access buyer contact details (phone/email) once a match is accepted.
 🏭 For Startups (Demand Side)Procurement Dashboard: Post sourcing requirements (e.g., "Need 1000kg Soybeans").Smart Recommendations: Receive AI-curated lists of verified farmers who meet your volume and price criteria.Quality Verification: View crop photos and harvest dates before initiating contact.
+
 🧠 The AI EngineScoring Algorithm: Matches are ranked (0-100%) based on:Price Compatibility: (Is the offer within budget?)Volume Fulfillment: (Can the farmer meet the required quota?)Location & Freshness: (Optimizing for logistics).🛠 Tech StackFrontend:React.js (Vite)Tailwind CSS (Styling)Lucide React (Icons)Axios (API Integration)Backend:Django REST Framework (API)Python (Business Logic)PostgreSQL (Production Database) / SQLite (Dev)Gunicorn & WhiteNoise (Deployment)
 Installation & SetupPrerequisitesNode.js & npmPython 3.8+Git1.
 Clone the RepositoryBashgit clone
